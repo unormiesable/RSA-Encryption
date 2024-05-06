@@ -61,13 +61,13 @@
                                <div class="flip-card__inner">
                                   <div class="flip-card__front">
                                      <div class="title">Enkripsi</div>
-                                     <form class="flip-card__form" id="formEnkripsi" action="">
+                                     <form class="flip-card__form" id="formEnkripsi" action="" method="post">
                                         <input class="flip-card__input" name="plaintext" placeholder="Teks" type="text" id="plaintext">
                                         <input class="flip-card__input" name="key1E" id="key1Enkripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
                                         <input class="flip-card__input" name="key2E" id="key2Enkripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
                                         <input class="flip-card__input" name="terenkripsi" placeholder="Hasil" type="text" readonly id="hasilE">
-                                        <button class="flip-card__btn" onclick="validatePrimes('key1Enkripsi', 'key2Enkripsi', 'formEnkripsi')">Enkripsi</button>
-                                     </form>
+                                        <button class="flip-card__btn" type="button" onclick="encrypt()">Enkripsi</button>
+                                    </form>
                                   </div>
                                   <div class="flip-card__back">
                                      <div class="title">Dekripsi</div>
@@ -76,7 +76,7 @@
                                         <input class="flip-card__input" name="Key 1D" id="key1Dekripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
                                         <input class="flip-card__input" name="Key 2D" id="key2Dekripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
                                         <input class="flip-card__input" name="terdekripsi" placeholder="Hasil Dekripsi" type="text" readonly id="hasilD">
-                                        <button class="flip-card__btn" onclick="validatePrimes('key3Dekripsi', 'key4Dekripsi', 'formDekripsi')">Dekripsi</button>
+                                        <button class="flip-card__btn">Dekripsi</button>
                                      </form>
                                   </div>
                                </div>
@@ -90,6 +90,30 @@
         </div>
 
     </div>
+
+    <script>
+        function encrypt() {
+            var plaintext = document.getElementById('plaintext').value;
+            var key1 = document.getElementById('key1Enkripsi').value;
+            var key2 = document.getElementById('key2Enkripsi').value;
+
+            // AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById('hasilE').value = response.ciphertext;
+                    } else {
+                        alert('Terjadi Kesalahan, Periksa Kembali Input (KEY harus bilangan prima yang berbeda).');
+                    }
+                }
+            };
+            xhr.open('POST', '/encrypt', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('plaintext=' + plaintext + '&key1E=' + key1 + '&key2E=' + key2);
+        }
+    </script>
 
 </body>
 </html>

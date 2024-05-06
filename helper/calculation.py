@@ -16,9 +16,9 @@ def is_prime(n):
 
 def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):
-        raise ValueError("Both numbers must be prime.")
+        raise ValueError("Angka Harus Prima.")
     elif p == q:
-        raise ValueError("p and q cannot be equal.")
+        raise ValueError("Angka Tidak Boleh Sama.")
     
     n = p * q
     phi = (p - 1) * (q - 1)

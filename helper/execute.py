@@ -3,7 +3,7 @@ from encryption import encrypt, decrypt
 
 if __name__ == '__main__':
     p = 61
-    q = 2
+    q = 23
     public_key, private_key = generate_keypair(p, q)
     print("Public key:", public_key)
     print("Private key:", private_key)
