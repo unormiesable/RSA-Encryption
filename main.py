@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request, jsonify
-from helper.encryption import encrypt
+from helper.encryption import encrypt, decrypt
 from helper.calculation import generate_keypair
 
 app = Flask(__name__)
@@ -14,7 +14,11 @@ def index():
         pubk, privk = generate_keypair(key1, key2)
         ciphertext = encrypt(pubk, plaintext)
         
-        return jsonify({'ciphertext': ciphertext})
+        return jsonify({
+            'ciphertext': ciphertext,
+            'pubkey': pubk,
+            'privkey': privk
+        })
     else:
         return render_template('index.html')
     
@@ -27,7 +31,35 @@ def encrypt_form():
     pubk, privk = generate_keypair(key1, key2)
     ciphertext = encrypt(pubk, plaintext)
     
-    return jsonify({'ciphertext': ciphertext})
+    return jsonify({
+            'ciphertext': ciphertext,
+            'pubkey': pubk,
+            'privkey': privk
+    })
+
+@app.route('/decrypt', methods=['POST'])
+def decrypt_form():
+    terenkripsi = request.form['terenkripsi']
+    key1 = tuple(map(int, request.form['key1D'].split(',')))
+    key2 = tuple(map(int, request.form['key2D'].split(',')))
+
+    # Convert terenkripsi to a list of integers
+    terenkripsi = list(map(int, terenkripsi.split(',')))
+
+    print("Received terenkripsi:", terenkripsi)
+    print("Received key1:", key1)
+    print("Received key2:", key2)
+
+    dekripsi = decrypt(key2, terenkripsi)
+    
+    print("Decrypted message:", dekripsi)
+
+    return jsonify({
+        'dekripsi': dekripsi
+    })
+
+
+
 
 @app.route('/github')
 def github():

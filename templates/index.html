@@ -65,19 +65,21 @@
                                         <input class="flip-card__input" name="plaintext" placeholder="Teks" type="text" id="plaintext">
                                         <input class="flip-card__input" name="key1E" id="key1Enkripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
                                         <input class="flip-card__input" name="key2E" id="key2Enkripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
+                                        <input class="flip-card__input" name="pubkey" id="pubkey" placeholder="Public Key" type="text" readonly>
+                                        <input class="flip-card__input" name="privkey" id="privkey" placeholder="Private Key" type="text" readonly>
                                         <input class="flip-card__input" name="terenkripsi" placeholder="Hasil" type="text" readonly id="hasilE">
                                         <button class="flip-card__btn" type="button" onclick="encrypt()">Enkripsi</button>
                                     </form>
                                   </div>
                                   <div class="flip-card__back">
                                      <div class="title">Dekripsi</div>
-                                     <form class="flip-card__form" id="formDekripsi" action="">
-                                        <input class="flip-card__input" placeholder="Teks Terenkripsi" type="text" name="text_terenkripsi" id="terenkripsi">
-                                        <input class="flip-card__input" name="Key 1D" id="key1Dekripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
-                                        <input class="flip-card__input" name="Key 2D" id="key2Dekripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
+                                     <form class="flip-card__form" id="formDekripsi" action="" method="post">
+                                        <input class="flip-card__input" placeholder="Teks Terenkripsi" type="text" name="terenkripsi" id="terenkripsi">
+                                        <input class="flip-card__input" name="key1Dekripsi" id="key1Dekripsi" placeholder="Public Key" type="text">
+                                        <input class="flip-card__input" name="key2Dekripsi" id="key2Dekripsi" placeholder="Private Key" type="text">
                                         <input class="flip-card__input" name="terdekripsi" placeholder="Hasil Dekripsi" type="text" readonly id="hasilD">
-                                        <button class="flip-card__btn">Dekripsi</button>
-                                     </form>
+                                        <button class="flip-card__btn" type="button" onclick="decrypt()">Dekripsi</button>
+                                    </form>                                    
                                   </div>
                                </div>
                             </label>
@@ -104,8 +106,12 @@
                     if (xhr.status == 200) {
                         var response = JSON.parse(xhr.responseText);
                         document.getElementById('hasilE').value = response.ciphertext;
+                        document.getElementById('pubkey').value = response.pubkey;
+                        document.getElementById('privkey').value = response.privkey;
+
+                        
                     } else {
-                        alert('Terjadi Kesalahan, Periksa Kembali Input (KEY harus bilangan prima yang berbeda).');
+                        alert('Terjadi Kesalahan Periksa Kembali Input.');
                     }
                 }
             };
@@ -113,6 +119,29 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send('plaintext=' + plaintext + '&key1E=' + key1 + '&key2E=' + key2);
         }
+
+        function decrypt() {
+            var terenkripsi = document.getElementById('terenkripsi').value;
+            var key1 = document.getElementById('key1Dekripsi').value;
+            var key2 = document.getElementById('key2Dekripsi').value;
+
+            // AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById('hasilD').value = response.dekripsi;
+                    } else {
+                        alert('Terjadi Kesalahan Periksa Kembali Input.');
+                    }
+                }
+            };
+            xhr.open('POST', '/decrypt', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('terenkripsi=' + terenkripsi + '&key1D=' + key1 + '&key2D=' + key2);
+        }
+
     </script>
 
 </body>
