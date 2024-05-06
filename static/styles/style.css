@@ -14,7 +14,7 @@ body{
 
 .left_nav{
     display: flex;
-    padding-left: 50px;
+    padding-left: 100px;
     flex-direction: row;
     align-items: center;
 
@@ -50,7 +50,7 @@ body{
 
 .right_nav{
     display: flex;
-    padding-right: 50px;
+    padding-right: 100px;
 }
 
 .navigation{
@@ -75,3 +75,48 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
+.main{
+    height: calc(100vh - 190px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main_left, .main_right {
+    width: 50%;
+}
+
+.main_left{
+    position: relative;
+    padding-left: 100px;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    font-family: monospace;
+    color: white;
+    margin: 0;
+}
+
+.main_left h1 {
+    font-family: 'segoe UI';
+    font-size: 72px;
+    margin: 0;
+}
+
+.main_left h3{
+    font-size: 14px;
+    margin: 0;
+}
+
+.main_right {
+    padding-right: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rsa_div{
+    background-color: aqua;
+}
+
