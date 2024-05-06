@@ -43,7 +43,6 @@ def decrypt_form():
     key1 = tuple(map(int, request.form['key1D'].split(',')))
     key2 = tuple(map(int, request.form['key2D'].split(',')))
 
-    # Convert terenkripsi to a list of integers
     terenkripsi = list(map(int, terenkripsi.split(',')))
 
     print("Received terenkripsi:", terenkripsi)
