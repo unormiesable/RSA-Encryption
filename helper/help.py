@@ -58,7 +58,7 @@ def decrypt(private_key, cipher):
 
 if __name__ == '__main__':
     p = 61
-    q = 53
+    q = 2
     public_key, private_key = generate_keypair(p, q)
     print("Public key:", public_key)
     print("Private key:", private_key)

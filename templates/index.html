@@ -51,7 +51,39 @@
 
             <div class="main_right">
                 <div class="rsa_div">
-                    
+
+                    <div class="wrapper">
+                        <div class="card-switch">
+                            <label class="switch">
+                               <input type="checkbox" class="toggle">
+                               <span class="slider"></span>
+                               <span class="card-side"></span>
+                               <div class="flip-card__inner">
+                                  <div class="flip-card__front">
+                                     <div class="title">Enkripsi</div>
+                                     <form class="flip-card__form" id="formEnkripsi" action="">
+                                        <input class="flip-card__input" name="plaintext" placeholder="Teks" type="text" id="plaintext">
+                                        <input class="flip-card__input" name="key1E" id="key1Enkripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
+                                        <input class="flip-card__input" name="key2E" id="key2Enkripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
+                                        <input class="flip-card__input" name="terenkripsi" placeholder="Hasil" type="text" readonly id="hasilE">
+                                        <button class="flip-card__btn" onclick="validatePrimes('key1Enkripsi', 'key2Enkripsi', 'formEnkripsi')">Enkripsi</button>
+                                     </form>
+                                  </div>
+                                  <div class="flip-card__back">
+                                     <div class="title">Dekripsi</div>
+                                     <form class="flip-card__form" id="formDekripsi" action="">
+                                        <input class="flip-card__input" placeholder="Teks Terenkripsi" type="text" name="text_terenkripsi" id="terenkripsi">
+                                        <input class="flip-card__input" name="Key 1D" id="key1Dekripsi" placeholder="Key 1 (Bilangan Prima)" type="number">
+                                        <input class="flip-card__input" name="Key 2D" id="key2Dekripsi" placeholder="Key 2 (Bilangan Prima)" type="number">
+                                        <input class="flip-card__input" name="terdekripsi" placeholder="Hasil Dekripsi" type="text" readonly id="hasilD">
+                                        <button class="flip-card__btn" onclick="validatePrimes('key3Dekripsi', 'key4Dekripsi', 'formDekripsi')">Dekripsi</button>
+                                     </form>
+                                  </div>
+                               </div>
+                            </label>
+                        </div>   
+                   </div>
+
                 </div>
             </div>
 
